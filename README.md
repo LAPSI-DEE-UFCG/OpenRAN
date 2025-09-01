@@ -17,6 +17,6 @@ Baseado no [LABORA-INF-UFG/xapp-workshop ](https://github.com/LABORA-INF-UFG/xap
 - Disco: 240 GB
 
 **Arquivos**
-- [Ambiente de simulação](OpenRAN/Setup.md)
+- [Ambiente de simulação](Setup.md)
 - [xAPPs desenvolvidos]()
 - [Passo-a-passo de instalação]()
