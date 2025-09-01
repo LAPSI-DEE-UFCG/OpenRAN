@@ -18,5 +18,5 @@ Baseado no [LABORA-INF-UFG/xapp-workshop ](https://github.com/LABORA-INF-UFG/xap
 
 **Arquivos**
 - [Ambiente de simulação](OpenRAN/Setup.md)
-- [xAPPs desenvolvidos](OpenRAN/Xapps.md)
-- [Passo-a-passo de instalação](Xapps.md)
+- [xAPPs desenvolvidos]()
+- [Passo-a-passo de instalação]()
