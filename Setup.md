@@ -12,3 +12,4 @@ Depois o próximo passo é baixar o reporsitório:
 ```bash
 git clone https://github.com/LAPSI-DEE-UFCG/OpenRAN/Xapps
 ```
+Isso permitirá que você tenha acesso a todos os xApps utilizados no estudo e possa seguir os passos de build e deploy descritos neste guia.
