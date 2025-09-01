@@ -1,47 +1,47 @@
-# Guia de Deploy de xApp no Near-RT RIC
+# xApp Deployment Guide on Near-RT RIC
 
-Este guia descreve o passo a passo para **onboard, build, push e instalar xApps** no cluster Kubernetes Near-RT RIC da OSC.
+This guide outlines the step-by-step process for onboarding, building, pushing, and installing xApps on the OSC Near-RT RIC Kubernetes cluster.
 
 ---
 
 ## 1. Onboard do xApp
 
-Antes de construir o container, faça o **onboard** do xApp usando o **DMS CLI**. Isso registra o xApp no sistema.
+Before building the container, onboard the xApp using the DMS CLI. This registers the xApp in the system:
 
 ```bash
 dms_cli onboard <CONFIG_FILE_PATH> <SCHEMA_PATH>
 ```
 
-* `<CONFIG_FILE_PATH>`: Caminho para o **config-file** do xApp (`.json`).
-* `<SCHEMA_PATH>`: Caminho para o **arquivo de esquema** que valida o config-file (`.json`).
+* `<CONFIG_FILE_PATH>`:  Path to the xApp **config file** (`.json`).
+* `<SCHEMA_PATH>`: Path to the **schema file** that validates the config file (`.json`).
 
 ---
 
-## 2. Listar charts disponíveis
+## 2. List Available Charts
 
-Para verificar os charts disponíveis no DMS, execute:
+To check the charts available in DMS, run:
 
 ```bash
 dms_cli get_charts_list
 ```
 
-Isso ajuda a confirmar se o xApp foi onboard corretamente.
+This helps confirm if the xApp has been onboarded correctly.
 
 ---
 
-## 3. Construir a imagem Docker do xApp
+## 3. Build the xApp Docker Image
 
-No diretório raiz do xApp, construa a imagem Docker:
+In the xApp root directory, build the Docker image:
 
 ```bash
 docker build . -t 127.0.0.1:5001/<XAPP_NAME>:<XAPP_VERSION> --network host
 ```
 
-* `<XAPP_NAME>`: Nome do xApp.
-* `<XAPP_VERSION>`: Versão do xApp.
-* `--network host`: Permite que o build use a rede do host, útil para conexões internas.
+* `<XAPP_NAME>`: Name of the xApp.
+* `<XAPP_VERSION>`: Version of the xApp.
+* `--network host`: Allows the build to use the host network, useful for internal connections.
 
-Verifique se a imagem foi criada corretamente:
+Verify that the image was created successfully:
 
 ```bash
 docker images
@@ -49,34 +49,34 @@ docker images
 
 ---
 
-## 4. Enviar a imagem para o repositório local
+## 4. Push the Image to the Local Repository
 
-Após a construção, envie a imagem Docker para o repositório:
+After building, push the Docker image to the repository:
 
 ```bash
 docker push <REPOSITORY>:<TAG>
 ```
 
-* `<REPOSITORY>`: Endereço do repositório (ex: `127.0.0.1:5001/<XAPP_NAME>`).
-* `<TAG>`: Versão do xApp (ex: `v1.0.0`).
+* `<REPOSITORY>`: Repository address  (e.g., `127.0.0.1:5001/<XAPP_NAME>`).
+* `<TAG>`: xApp version (e.g.: `v1.0.0`).
 
 ---
 
-## 5. Instalar o xApp no cluster
+## 5. Install the xApp on the Cluster
 
-Com a imagem disponível no repositório, instale o xApp no **namespace** desejado:
+With the image available in the repository, install the xApp in the desired **namespace**:
 
 ```bash
 dms_cli install <XAPP_NAME> <XAPP_VERSION> <NAMESPACE>
 ```
 
-* `<NAMESPACE>`: Namespace Kubernetes onde o xApp será executado.
+* `<NAMESPACE>`: Kubernetes namespace where the xApp will run.
 
 ---
 
-## 6. Debug: Verificar pods e serviços
+## 6. Debug: Check Pods and Services
 
-Para conferir se o xApp está rodando e as portas estão abertas, use os comandos abaixo:
+To verify that the xApp is running and ports are open, use the following commands:
 
 ```bash
 kubectl -n <NAMESPACE> get pods    # Lista os pods do namespace
@@ -85,9 +85,9 @@ kubectl -n <NAMESPACE> get svc     # Lista os serviços e portas abertas
 
 ---
 
-## 7. Desinstalar o xApp
+## 7. Uninstall the xApp
 
-Se necessário, o xApp pode ser removido do cluster com:
+If needed, the xApp can be removed from the cluster with:
 
 ```bash
 dms_cli uninstall <XAPP_NAME> <NAMESPACE>
@@ -95,16 +95,16 @@ dms_cli uninstall <XAPP_NAME> <NAMESPACE>
 
 ---
 
-## Observações
+## Notes
 
-* Certifique-se de que o **Docker** e o **DMS CLI** estão configurados corretamente no seu ambiente.
-* Os caminhos para config-file e schema devem estar acessíveis no host onde o comando é executado.
-* Recomenda-se sempre verificar os **logs do pod** no Kubernetes para confirmar que o xApp está rodando corretamente.
+* Ensure **Docker** and **DMS CLI** are correctly configured in your environment.
+*  The paths to the config file and schema must be accessible on the host where the command is executed.
+* It is recommended to always check the **pod logs** in Kubernetes to confirm the xApp is running correctly.
 
 ---
 
-## Estrutura do xApp no Near-RT RIC
+## xApp Structure in Near-RT RIC
 
-No **cluster Kubernetes Near-RT RIC da OSC**, cada **xApp** é implantado como um **pod**, que pode conter **um ou mais contêineres Docker** e um conjunto de **serviços**, responsáveis por expor as portas abertas do pod. As informações necessárias para construir o pod e seus serviços são definidas no **descritor do xApp**, conhecido como **config-file** (opcional).
+In the OSC Near-RT RIC Kubernetes cluster, each **xApp** is deployed as a pod, which may contain **one or more Docker containers** and a set of **services** responsible for exposing the pod's open ports. The information needed to build the pod and its services is defined in the **xApp descriptor**, known as the **config file** (optional).
 
-Para garantir a correção da sintaxe da seção de controle, um **arquivo de esquema** pode acompanhar o config-file. Ambos os arquivos são do tipo **.json** e normalmente estão localizados dentro do diretório **init/**.
+To ensure correct syntax in the control section, a schema file may accompany the config file. Both files are **.json** and are typically located within the **init/ **directory.
