@@ -1,16 +1,7 @@
-
 # Guia de Deploy de xApp no Near-RT RIC
 
 Este guia descreve o passo a passo para **onboard, build, push e instalar xApps** no cluster Kubernetes Near-RT RIC da OSC.
 
-Para qualquer xAPP abaixo:
-
--`monitor-sdl`
-
--`xapp-sdl-malicioso`
-
--`xapp-sdl`
- 
 ---
 
 ## 1. Onboard do xApp
@@ -83,7 +74,18 @@ dms_cli install <XAPP_NAME> <XAPP_VERSION> <NAMESPACE>
 
 ---
 
-## 6. Desinstalar o xApp
+## 6. Debug: Verificar pods e serviços
+
+Para conferir se o xApp está rodando e as portas estão abertas, use os comandos abaixo:
+
+```bash
+kubectl -n <NAMESPACE> get pods    # Lista os pods do namespace
+kubectl -n <NAMESPACE> get svc     # Lista os serviços e portas abertas
+```
+
+---
+
+## 7. Desinstalar o xApp
 
 Se necessário, o xApp pode ser removido do cluster com:
 
