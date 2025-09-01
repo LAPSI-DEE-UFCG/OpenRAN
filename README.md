@@ -18,5 +18,5 @@ Baseado no [LABORA-INF-UFG/xapp-workshop ](https://github.com/LABORA-INF-UFG/xap
 
 **Arquivos**
 - [Ambiente de simulação](Setup.md)
-- [xAPPs desenvolvidos]()
-- [Passo-a-passo de instalação]()
+- [xAPPs desenvolvidos](Xapps)
+- [Passo-a-passo de instalação](Build.md)
