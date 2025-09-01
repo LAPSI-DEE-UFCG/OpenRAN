@@ -2,7 +2,7 @@ OpenRAN
 
 OpenRAN Brazil Project Collaboration
 
-Developed xAPPs
+# Developed xAPPs
 
 This repository gathers the xApps created in the article <ARTICLE_TITLE> using the OSC framework.
 
